@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Vue 测试实例 - 菜鸟教程(runoob.com)</title>
+<script src="https://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script>
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+</head>
+<body>
+	<style>
+		.class1{
+			background-color: #444;
+			color: #eee;
+		}
+	</style>
+<div id="app">
+  <div v-html="a" :style="[styleObject,fontstyle]"></div>
+  <p>{{ message }}</p>
+  
+</div>
+
+<!-- 
+	你看到的 v-bind 属性被称为指令
+	这里该指令的作用是：“将这个元素节点的 title 属性和 Vue 实例的 message 属性保持一致”。
+-->
+<div id="app-2">
+	<span v-bind:title="message">
+		鼠标悬停几秒查看此处动态绑定的提示信息！
+	</span>
+</div>
+
+<div id="app-3">
+	<p v-if="seen">我看到你们了</p>
+</div>
+
+<!--
+	v-for 指令可以绑定数组的数据来渲染一个项目列表：
+ -->
+<div id="app-4">
+	<ol>
+		<li v-for="todo in todos">
+		{{ todo.text }}
+		</li>
+	</ol>
+	<ul >
+		<template v-for="site in sites">
+			<li>
+			{{ site.name }}
+			</li>
+			<li>---------</li>
+		</template>
+	</ul>
+</div>
+
+<!--
+	v-on 指令绑定一个事件监听器
+ -->
+ <div id="app-5">
+ 	<p>{{ message }}</p>
+ 	<button v-on:click="reverseMessage">逆转信息</button>
+ </div>
+
+ <!-- 
+	Vue 还提供了 v-model 指令，
+	它能轻松实现表单输入和应用状态之间的双向绑定。
+ 
+ -->
+<div id="app-6">
+ 	<p>{{ message }}</p>
+ 	<input v-model="message">
+ 	<pre><a :href="url" :target="target">菜鸟教程</a></pre>
+ </div>
+ 
+ <div id="app-7">
+ 	<ol>
+ 		<todo-item
+ 			v-for="item in List"
+ 			v-bind:todo="item"
+ 			v-bind:key="item.id">
+ 		</todo-item>
+ 	</ol>
+ </div>
+ <div id="app-8">
+ 	<label for="r1">修改颜色</label><input type="checkbox" v-model="class1" id="r1">
+ 	<br><br>
+ 	<div v-bind:class="{'class1': class1}">
+ 	Aimer,Gakki大好
+ 	</div>
+ 	
+ </div>
+ <div id="app-9">
+ 	<div v-if="Num>0.5">
+ 		随机数为：{{Num}}大于0.5
+ 	</div>
+ 	<div v-else>
+ 		Hello aimer!
+ 	</div>
+ </div>
+
+ <div id="app-10">
+ 	<button v-on:click="say('hi')">say hi</button>
+ 	<button v-on:click="say('what')">say what</button>
+ </div>
+<!--v-model输入框-->
+<div id="app-11">
+	<p>input元素：</p>
+	<input v-model="message" placeholder="编辑我...">
+	<p>消息是：{{ message }}</p>
+
+	<p>textarea元素：</p>
+	<!--pre会识别换行符和回车符-->
+	<p style="white-space: pre">{{ message2 }}</p>
+	<textarea v-model="message2" placeholder="多行输入...."></textarea>
+	
+</div>
+<!--v-model 复选框-->
+<div id="app-12">
+	<!--全选与取消全选-->
+	<div id="option">
+		<!--单个复选框-->
+	<input type="checkbox" id="checkedbox" v-model="checked" v-on:click="changAllChecked">
+	<label for="checkedbox">{{ checked }}</label>
+	<!--多个复选框-->
+	<p>多个复选框：</p>
+	<input type="checkbox" id="tencent" value="Tencent" v-model="checkedNames">
+	<label for="tencent">Tencent</label>
+	<input type="checkbox" id="alibaba" value="Alibaba" v-model="checkedNames">
+	<label for="alibaba">Alibaba</label>
+	<input type="checkbox" id="amazon" value="Amazon" v-model="checkedNames">
+	<label for="amazon">Amazon</label>
+	<p>选择的是：{{ checkedNames }}</p>
+	</div>
+	
+	<!--单选按钮-->
+	<div>
+		<input type="radio" id="aimer" value="Aimer" v-model="picked">
+		<label for="aimer">Aimer</label>
+		<br>
+		<input type="radio" id="gakki" value="Gakki" v-model="picked">
+		<label for="gakki">Gakki</label>
+		<br>
+		<span>您选择的是：{{ picked }}</span>
+	</div>
+</div>
+<!--下拉列表的双向数据绑定-->
+<div id="app-13">
+	<select v-model="selected">
+		<option value="">请选择一个</option>
+		<option value="Aimer">Aimer</option>
+		<option value="Gakki">Gakki</option>
+	</select>
+	<div id="output">
+		<span>你选择的是：{{ selected }}</span>
+	</div>
+</div>
+
+<!--自定义指令-->
+<div id="app-14">
+	<p>自动获取input焦点:</p>
+	<input type="text" v-focus>
+</div>
+
+<!--Vue路由-->
+<div id="app-15">
+	<h1>Hello Vue</h1>
+		<p>
+			<!--通过使用router-link组件来导航-->
+			<!--通过传入"to"属性指定链接-->
+			<!--router-link会被渲染成一个a标签-->
+			<router-link to="/aimer">Go to Aimer</router-link>
+			<router-link to="/gakki">Go to Gakki</router-link>
+		</p>
+		<!--路由出口-->
+		<!--路由匹配到的组件将被渲染到这里-->
+		<router-view></router-view>
+	
+	
+</div>
+<script>
+new Vue({
+  el: '#app',
+  data: {
+  	styleObject: {
+  		color: 'green',
+  		fontSize: '15px',
+  	},
+  	fontstyle: {
+  		'font-style': 'italic'
+  	},
+    message: 'Hello Vue.js!',
+    a: '<h1>Vue菜鸟教程</h1>'
+  }
+})
+
+var app2 = new Vue({
+	el: '#app-2',
+	data: {
+		message: '页面加载于' + new Date().toLocaleString()
+	}
+})
+
+var app3 = new Vue({
+	el: '#app-3',
+	data: {
+		seen: false
+	}
+})
+
+var app4 = new Vue({
+	el: '#app-4',
+	data: {
+		todos: [
+		{ text: 'Aimer' ,
+			sexual: 'femal'
+	},
+		{ text: 'Gakki' },
+		{ text: 'Lujie' }
+		],
+
+		sites: [
+			{ name: 'tencent' },
+			{ name: 'alibaba' },
+			{ name: 'baidu' }
+		]
+	}
+})
+var app5 = new Vue({
+	el: '#app-5',
+	data: {
+		message: 'Hello Aimer&Gakki!'
+	},
+	methods: {
+		reverseMessage: function (){
+			this.message = this.message.split("").reverse().join("")
+		}
+	}
+})
+var app6 = new Vue({
+	el: '#app-6',
+	data: {
+		message: 'Hello Aimer&Gakki',
+		url: 'http://www.runoob.com',
+		target: '_blank'
+	}
+})
+
+Vue.component('todo-item',{
+	props: ['todo'],
+	template: '<li>{{ todo.text }}</li>'
+})
+
+var app7 = new Vue({
+	el: '#app-7',
+	data: {
+		List: [
+			{id: 0, text: 'Aimer'},
+			{id: 1, text: 'Gakki'},
+			{id: 2, text: 'LuLu'}
+		]
+	}
+})
+
+var app8 = new Vue({
+	el: '#app-8',
+	data: {
+		class1: false
+	}
+})
+
+var app9 = new Vue({
+	el: '#app-9',
+	data: {
+		Num: Math.random()
+	}
+})
+
+var app10 = new Vue({
+	el: '#app-10',
+	methods: {
+		say: function(message){
+			alert(message)
+		}
+	}
+})
+
+var app11 = new Vue({
+	el: '#app-11',
+	data: {
+		message: 'RUNOOB',
+		message2: 'Aimer官网\r\nhttp://www.aimer-web.jp/'
+	}
+})
+
+var app12 = new Vue({
+	el: '#app-12',
+	data: {
+		checked: false,
+		checkedNames: [],
+		checkedArr: ["Tencent", "Alibaba", "Amazon"],
+		picked: ''
+	},
+	methods: {
+		changAllChecked: function(){
+			if (this.checked) {
+				this.checkedNames = this.checkedArr
+			}else{
+				this.checkedNames = []
+			}
+		}
+	},
+	watch: {
+		'checkedNames': function(){
+			if (this.checkedNames.length == this.checkedArr.length) {
+				this.checked = true
+			}else{
+				this.checked = false
+			}
+		}
+	}
+
+})
+
+var app13 = new Vue({
+	el: '#app-13',
+	data: {
+		selected: ''
+	}
+})
+
+var app14 = new Vue({
+	el: '#app-14',
+	directives: {
+		focus: {
+			inserted: function (e1) {
+				// 聚焦元素
+				e1.focus()
+			}
+		}
+	}
+})
+
+//1、定义路由组件
+//可以从其他文件import进来
+const Aimer = { template: '<div>I love Aimer!</div>' }
+const Gakki = { template: '<div>I love Gakki!</div>' }
+
+//2、定义路由
+const routes = [
+	{ path: '/aimer', component: Aimer},
+	{ path: '/gakki', component: Gakki}
+]
+
+//3、创建router实例，然后传 router 配置
+const router = new VueRouter({
+	routes // 相当于：routes: routes
+})
+
+//4、创建和挂载根实例
+const app = new Vue({
+	router
+}).$mount('#app-15')
+</script>
+</body>
+</html>
